@@ -1,0 +1,11 @@
+instalar java 21
+https://download.oracle.com/java/21/latest/jdk-21_windows-x64_bin.exe
+
+instalar gradle
+https://maven.apache.org/download.cgi	
+Binary zip archive	apache-maven-3.9.9-bin.zip
+
+descomprimir, crear carpeta para mover ahí y configurar la variable de entorno
+
+./mvnw spring-boot:run
+        

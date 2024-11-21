@@ -1,0 +1,44 @@
+    @Autowired
+    X service;
+
+    @GetMapping
+    public ResponseEntity<List<CLASE>> get() {
+        List<CLASE> lista = service.findAll();
+        return ResponseEntity.ok(lista);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getEntity(@PathVariable Long id) {
+        if (!service.existsById(id)) {  
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();         
+        }
+
+        CLASE registro = service.findById(id); 
+        return ResponseEntity.ok(registro);
+    }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        if (!service.existsById(id)) {  
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ID not found");
+        }
+        service.deleteById(id); 
+        return ResponseEntity.ok().body("Deleted successfully");
+    }
+
+    @PostMapping(path = "/save")
+    public ResponseEntity<?> saveRegistro(@RequestBody CLASE x) {
+        return ResponseEntity.ok(service.save(x));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CLASE> update(@PathVariable Long id, @RequestBody CLASE x) {
+        if (!service.existsById(id)) {  
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();         
+        }
+        CLASE editad = service.findById(id);
+        editad.setDescripcion(x.getDescripcion());
+        editad.setNombre(x.getNombre());
+        CLASE e = service.save(editad);
+        return ResponseEntity.ok(e);
+    }
